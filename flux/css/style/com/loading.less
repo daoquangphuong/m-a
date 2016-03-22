@@ -1,0 +1,35 @@
+#loading {
+    .un-full;
+    .loading-screen {
+        .user-select(none);
+        position: fixed;
+        z-index: 9999;
+        overflow: hidden;
+        .hide-after(1s);
+        .wrapper-blur {
+            .animated(1s);
+            .fadeOut;
+        }
+        .icon {
+            .animated(1s);
+            .bounceOut;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -35px;
+            margin-left:-30px;
+            i.fa {
+                color: #fff;
+            }
+        }
+        //active
+        &.active {
+            .wrapper-blur {
+                .fadeIn;
+            }
+            .icon {
+                .fadeIn;
+            }
+        }
+    }
+}
