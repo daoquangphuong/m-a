@@ -2,12 +2,6 @@
 
 (function () {
     try {
-        if (typeof unsafeWindow !== 'undefined') {
-            if (unsafeWindow.needReload) {
-                return window.location.reload();
-            }
-            unsafeWindow.needReload = true;
-        }
         require('./core/q_hook')();
         require('./core/react_hook')();
         require('./core/jquery_hook')();
@@ -18,7 +12,6 @@
         //component
 
         var App = require('./module/app/com/app');
-        var HelloWorld = require('./module/hello_world/com/hello_world');
         var Router = reactRouter.Router;
         var Route = reactRouter.Route;
         var browserHistory = reactRouter.browserHistory;

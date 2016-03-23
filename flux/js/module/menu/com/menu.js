@@ -73,7 +73,7 @@ var Menu = React.createClass({
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <a className="navbar-brand" href="javascript:void(0);">
-                            <i className="fa fa-leaf"/> HDOnline.vn
+                            <i className="fa fa-leaf"/> Mock App
                         </a>
                     </div>
                     <div className="navbar-collapse">

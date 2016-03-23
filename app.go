@@ -3,9 +3,29 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/googollee/go-socket.io"
 )
+
+type justFileNoDir struct {
+	Fs http.FileSystem
+
+}
+
+func (fs justFileNoDir) Open(name string) (http.File, error) {
+	f, err := fs.Fs.Open(name)
+
+	if err != nil {
+		return nil, err
+	}
+	stat, err := f.Stat()
+	if name != "/" && stat.IsDir() {
+		return nil, os.ErrNotExist
+	}
+
+	return f, nil
+}
 
 func main() {
 	server, err := socketio.NewServer(nil)
@@ -28,7 +48,7 @@ func main() {
 	})
 
 	http.Handle("/socket.io/", server)
-	http.Handle("/", http.FileServer(http.Dir("./asset")))
+	http.Handle("/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
 	log.Println("Serving at localhost:5000...")
 	log.Fatal(http.ListenAndServe(":5000", nil))
 }
