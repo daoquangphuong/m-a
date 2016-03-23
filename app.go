@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"html/template"
 	"net/http"
 	"os"
 
@@ -48,7 +49,15 @@ func main() {
 	})
 
 	http.Handle("/socket.io/", server)
-	http.Handle("/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
+	http.Handle("/css/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
+	http.Handle("/fonts/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
+	http.Handle("/images/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
+	http.Handle("/js/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		t, _ := template.ParseFiles("./assets/index.html")
+		type Data struct{}
+		t.Execute(w, Data{})
+	})
 	log.Println("Serving at localhost:5000...")
 	log.Fatal(http.ListenAndServe(":5000", nil))
 }

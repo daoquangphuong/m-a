@@ -19,6 +19,10 @@
         var routeSetup = (
             <Router history={browserHistory}>
                 <Route path="/*" component={App}>
+                    <Route path="/config" component={App}/>
+                    <Route path="/test" component={App}>
+                        <Route path="/test/send_and_receive" component={App}/>
+                    </Route>
                 </Route>
             </Router>
         );
