@@ -11,7 +11,7 @@ var watchify = require('watchify');
 var browserify = require('browserify');
 
 const SOURCE_PATH = 'flux';
-const DIST_PATH = './assets';
+const DIST_PATH = './application/assets';
 
 const _STEP_0 = 'STEP 0: CLEAN';
 const _STEP_1 = 'STEP 1: JS';
