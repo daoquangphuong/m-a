@@ -15,9 +15,10 @@ type justFileNoDir struct {
 }
 
 func (fs justFileNoDir) Open(name string) (http.File, error) {
-	f, err := fs.Fs.Open(name)
+	f, err := fs.Fs.Open(name);
 
 	if err != nil {
+		log.Fatal(err);
 		return nil, err
 	}
 	stat, err := f.Stat()
@@ -49,12 +50,20 @@ func main() {
 	})
 
 	http.Handle("/socket.io/", server)
-	http.Handle("/css/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
-	http.Handle("/fonts/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
-	http.Handle("/images/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
-	http.Handle("/js/", http.FileServer(justFileNoDir{http.Dir("./assets")}))
+	http.Handle("/css/", http.FileServer(justFileNoDir{http.Dir("./application/assets")}))
+	http.Handle("/fonts/", http.FileServer(justFileNoDir{http.Dir("./application/assets")}))
+	http.Handle("/images/", http.FileServer(justFileNoDir{http.Dir("./application/assets")}))
+	http.Handle("/js/", http.FileServer(justFileNoDir{http.Dir("./application/assets")}))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		t, _ := template.ParseFiles("./assets/index.html")
+		pwd, err := os.Getwd()
+		if err != nil {
+			log.Fatal(err)
+		}
+		tempFile := pwd + "\\application\\assets\\index.html";
+		t, err := template.ParseFiles(tempFile)
+		if err != nil {
+			log.Fatal(err)
+		}
 		type Data struct{}
 		t.Execute(w, Data{})
 	})
