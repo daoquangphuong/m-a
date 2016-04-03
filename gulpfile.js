@@ -20,7 +20,7 @@ const _STEP_3 = 'STEP 3: CSS';
 const _STEP_4 = 'STEP 4: FONTS';
 const _STEP_5 = 'STEP 5: IMAGES';
 
-const _IS_DEV = process.argv[process.argv.length - 1] == 'dev';
+const _IS_DEV = true;// process.argv[process.argv.length - 1] == 'dev';
 
 if (_IS_DEV) {
     console.log('-----THIS IS DEV ENVIRONMENT-----');
