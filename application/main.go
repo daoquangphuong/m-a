@@ -55,12 +55,7 @@ func main() {
 	http.Handle("/images/", http.FileServer(justFileNoDir{http.Dir("./application/assets")}))
 	http.Handle("/js/", http.FileServer(justFileNoDir{http.Dir("./application/assets")}))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		pwd, err := os.Getwd()
-		if err != nil {
-			log.Fatal(err)
-		}
-		tempFile := pwd + "\\application\\assets\\index.html";
-		t, err := template.ParseFiles(tempFile)
+		t, err := template.ParseFiles("./application/assets/index.html")
 		if err != nil {
 			log.Fatal(err)
 		}
