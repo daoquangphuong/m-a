@@ -150,7 +150,7 @@ gulp.task(_STEP_5, [], function () {
 });
 
 (function () {
-    var watch = gulp.watch(SOURCE_PATH + '/**/*.js');
+    var watch = gulp.watch([SOURCE_PATH + '/**/*.js', '!' + SOURCE_PATH + '/node_modules/**/*.js']);
     watch.on('change', function () {
         console.log('>>> DETECT CHANGE JS<<<')
     });
